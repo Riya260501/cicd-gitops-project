@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitOps Dashboard</title>
+  <style>
+    body{font-family:sans-serif;max-width:900px;margin:40px auto;padding:0 20px;background:#f5f5f5}
+    h1{color:#2c3e50}
+    .subtitle{color:#7f8c8d;margin-bottom:32px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{background:white;border-radius:10px;padding:20px;border:1px solid #dee2e6}
+    .card h3{margin:0 0 10px;color:#2c3e50}
+    .badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:bold}
+    .healthy{background:#d4edda;color:#155724}
+    .checking{background:#fff3cd;color:#856404}
+    .error{background:#f8d7da;color:#721c24}
+    .info{margin-top:8px;font-size:13px;color:#6c757d}
+    footer{margin-top:40px;text-align:center;color:#adb5bd;font-size:13px}
+  </style>
+</head>
+<body>
+  <h1>🚀 GitOps Dashboard</h1>
+  <p class="subtitle">Deployed via Tekton CI + ArgoCD GitOps on Minikube</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Python Backend</h3>
+      <span class="badge checking" id="py-status">Checking...</span>
+      <p class="info" id="py-info">Flask / Gunicorn service</p>
+    </div>
+    <div class="card">
+      <h3>Java Backend</h3>
+      <span class="badge checking" id="java-status">Checking...</span>
+      <p class="info" id="java-info">Spring Boot service</p>
+    </div>
+    <div class="card">
+      <h3>Angular Frontend</h3>
+      <span class="badge healthy">Healthy</span>
+      <p class="info">This service — Nginx container</p>
+    </div>
+  </div>
+  <footer>Pipeline: Tekton → Minikube Registry → ArgoCD → Minikube</footer>
+  <script>
+    async function check(url, sid, iid, name) {
+      try {
+        const d = await (await fetch(url)).json();
+        document.getElementById(sid).textContent = d.status||'running';
+        document.getElementById(sid).className = 'badge healthy';
+        document.getElementById(iid).textContent = name+' is responding';
+      } catch(e) {
+        document.getElementById(sid).textContent = 'Unreachable';
+        document.getElementById(sid).className = 'badge error';
+        document.getElementById(iid).textContent = 'Cannot reach '+name;
+      }
+    }
+    check('/api/python/health','py-status','py-info','Python Backend');
+    check('/api/java/health','java-status','java-info','Java Backend');
+  </script>
+</body>
+</html>
