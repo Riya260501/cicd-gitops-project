@@ -16,7 +16,7 @@ spec:
       containers:
       - name: python-backend
         image: 10.98.196.224:80/python-backend:18270e51a1fe74297f9b14d76bf61b6a8c87a5ee
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
         livenessProbe:
