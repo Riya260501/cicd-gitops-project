@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
 - name: java-backend
-        image: 10.98.196.224:80/java-backend:18270e51a1fe74297f9b14d76bf61b6a8c87a5ee
+        image: 10.98.196.224:80/java-backend:4db9a2aac9d3effdd2a7bc86042701f013280677
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
