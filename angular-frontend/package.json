@@ -1,0 +1,7 @@
+{
+  "name": "angular-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'Angular build complete'"
+  }
+}
