@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: angular-frontend
-        image: 10.98.196.224:80/angular-frontend:18086e9fa6fd50b9d7eb844717d9222e63371813
+        image: 10.98.196.224:80/angular-frontend:d468d192bda0821834c9248bc9b7e98be094d2f6
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
